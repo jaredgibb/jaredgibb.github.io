@@ -58,7 +58,7 @@
 
 			var returnObjects = [];
 
-			object.forEach(element => {
+			message.forEach(element => {
 
 				if (kmToMiles(haversine(element, l2)) < 100) {
 					returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' miles away');
