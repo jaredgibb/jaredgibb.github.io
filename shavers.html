@@ -68,7 +68,7 @@
 				var messageList = JSON.parse(message);
 				var index = messageList.index
 				var data = messageList.Locations
-				document.getElementById("result").innerHTML = messageList.Locations[index];
+				document.getElementById("result").innerHTML = data[index];
 				ThunkableWebviewerExtension.postMessage(messageList.Locations);
 			}, 1000);
 
@@ -86,9 +86,12 @@
 
 			//forEach item in object, conduct haversine.s
 			setTimeout(function () {
-				messageList.Locations.forEach(element => {
-					if (kmToMiles(haversine(element, l2)) > 0) {
+				data.forEach(element => {
+					if (kmToMiles(haversine(element, l2)) > 10) {
 						returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' miles away');
+					}
+					else {
+						returnObjects.push('nothing')
 					}
 				});
 
