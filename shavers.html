@@ -53,12 +53,12 @@
 
 		ThunkableWebviewerExtension.receiveMessage(function (message) {
 			// var messageList = JSON.parse(message);
-			var object = message;
+			var object = thingy;
 			
 
 			var returnObjects = [];
 
-			message.forEach(element => {
+			object.forEach(element => {
 
 				if (kmToMiles(haversine(element, l2)) < 100) {
 					returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' miles away');
