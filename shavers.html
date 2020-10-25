@@ -52,9 +52,10 @@
 
 
 		ThunkableWebviewerExtension.receiveMessage(function (message) {
-			var object = message;
-			var returnObjects = []
-			var thunkIt = []
+			var object = [];
+			object.concat(message);
+			var returnObjects = [];
+			var thunkIt = [];
 			object.forEach(element => {
 
 				if (kmToMiles(haversine(element, l2)) < 100) {
