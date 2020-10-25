@@ -48,11 +48,14 @@
 		ThunkableWebviewerExtension.receiveMessage(function (message) {
 			ThunkableWebviewerExtension.postMessage('start');
 
+			var other = message
+			ThunkableWebviewerExtension.postMessage('other Set');
+
 			
 			var messageList = JSON.parse(message);
 			ThunkableWebviewerExtension.postMessage('parse message');
 
-			var object = messageList.data;
+			var object = messageList.Locations;
 			ThunkableWebviewerExtension.postMessage('set object');
 
 			var returnObjects = [];
