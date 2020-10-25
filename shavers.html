@@ -67,6 +67,7 @@
 			setTimeout(function () {
 				var messageList = JSON.parse(message);
 				var index = messageList.index
+				var data = messageList.Locations
 				document.getElementById("result").innerHTML = messageList.Locations[index];
 				ThunkableWebviewerExtension.postMessage(messageList.Locations);
 			}, 1000);
@@ -91,7 +92,7 @@
 					}
 				});
 
-				ThunkableWebviewerExtension.postMessage('object.forEach');
+				ThunkableWebviewerExtension.postMessage(data);
 			}, 2500);
 
 		});
