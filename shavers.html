@@ -60,6 +60,7 @@
 			
 			setTimeout(function () {
 				var messageList = JSON.parse(message);
+				document.getElementById("result").innerHTML = messageList;
 				ThunkableWebviewerExtension.postMessage(messageList);
 			}, 1000);
 
