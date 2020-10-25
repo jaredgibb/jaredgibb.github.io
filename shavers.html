@@ -53,19 +53,22 @@
 
 		ThunkableWebviewerExtension.receiveMessage(function (message) {
 			var object = [];
-			object.concat(message);
+			var incoming = message;
+			object.concat(incoming);
 			var returnObjects = [];
 			var thunkIt = [];
 			object.forEach(element => {
 
 				if (kmToMiles(haversine(element, l2)) < 100) {
 					returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' miles away');
+					/*
 					thunkIt.push({
 						city: element.City,
 						lattitude: element.location[0],
 						longitude: element.location[1],
 						distance: kmToMiles(haversine(element, l2))
 					})
+					*/
 				}
 			});
 
