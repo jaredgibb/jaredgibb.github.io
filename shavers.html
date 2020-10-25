@@ -75,14 +75,15 @@
 				var data = messageList.Locations
 				var whatisit = typeof data;
 				
-				document.getElementById("result").innerHTML = data[index].City;
+				
 				var returnObjects = [];
 				data.forEach(element => {
-					if (kmToMiles(haversine(element, l2)) > 0) {
+					if (kmToMiles(haversine(element, l2)) > 10) {
 						returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' f away');
 					}
 				});
 				ThunkableWebviewerExtension.postMessage(returnObjects);
+				document.getElementById("result").innerHTML = returnObjects;
 			}, 1000);
 
 		});
