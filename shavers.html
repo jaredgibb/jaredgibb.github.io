@@ -63,24 +63,26 @@
 				ThunkableWebviewerExtension.postMessage('other Set');
 			}, 500);
 
-			
+			//parse string from app into JSON object
 			setTimeout(function () {
 				var messageList = JSON.parse(message);
 				document.getElementById("result").innerHTML = messageList;
 				ThunkableWebviewerExtension.postMessage(messageList);
 			}, 1000);
 
-			
+			//set object = to property Locations from object messageList
 			setTimeout(function () {
 				var object = messageList.Locations;
 				ThunkableWebviewerExtension.postMessage(object);
 			}, 1500);
 
+			//create an array to return stuff
 			setTimeout(function () {
 				var returnObjects = [];
 				ThunkableWebviewerExtension.postMessage('create empty array');
 			}, 2000);
 
+			//show me messageList
 			setTimeout(function () {
 				document.getElementById("result").innerHTML = messageList;
 				ThunkableWebviewerExtension.postMessage('done');
