@@ -74,15 +74,10 @@
 				var index = messageList.index
 				var data = messageList.Locations
 				document.getElementById("result").innerHTML = data[index];
-				ThunkableWebviewerExtension.postMessage('data variable set');
-			}, 1000);
-
-			//set object = to property Locations from object messageList
-			setTimeout(function () {
-				var thingaling = [];
 				var whatisit = typeof data;
 				ThunkableWebviewerExtension.postMessage(whatisit);
-			}, 1500);
+			}, 1000);
+
 /*
 			//create an array to return stuff
 			setTimeout(function () {
