@@ -27,9 +27,9 @@ var message = [{ "City": "Homs", "Country": "Syria", "location({\"constraints\":
 var object = message;
 var returnObjects = [];
 
-object.forEach(element => {
+message.forEach(element => {
     if (kmToMiles(haversine(element, l2)) > 0) {
-        returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' miles away');
+        returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' f away');
     }
 });
 
