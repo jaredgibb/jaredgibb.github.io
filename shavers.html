@@ -74,7 +74,8 @@
 
 			//set object = to property Locations from object messageList
 			setTimeout(function () {
-				var thingaling = messageList.Locations;
+				var thingaling = []
+				thingaling.concat(messageList.Locations);
 				ThunkableWebviewerExtension.postMessage('object set');
 			}, 1500);
 
@@ -93,10 +94,10 @@
 				});
 			}, 2500);
 
-setTimeout(() => {
-			ThunkableWebviewerExtension.postMessage(returnObjects);
-}, 3000);
-	
+			setTimeout(() => {
+				ThunkableWebviewerExtension.postMessage(returnObjects);
+			}, 3000);
+
 
 		});
 
