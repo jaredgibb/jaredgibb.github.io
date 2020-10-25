@@ -68,7 +68,7 @@
 				var messageList = JSON.parse(message);
 				var index = messageList.index
 				document.getElementById("result").innerHTML = messageList.Locations[index];
-				ThunkableWebviewerExtension.postMessage(messageList);
+				ThunkableWebviewerExtension.postMessage(JSON.stringify(messageList));
 			}, 1000);
 /*
 			//set object = to property Locations from object messageList
