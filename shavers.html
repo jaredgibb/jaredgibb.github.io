@@ -69,7 +69,7 @@
 				var index = messageList.index
 				var data = messageList.Locations
 				document.getElementById("result").innerHTML = data[index];
-				ThunkableWebviewerExtension.postMessage(messageList.Locations);
+				ThunkableWebviewerExtension.postMessage('data variable set');
 			}, 1000);
 
 			//set object = to property Locations from object messageList
@@ -87,7 +87,7 @@
 
 			//forEach item in object, conduct haversine.s
 			setTimeout(function () {
-				message.forEach(element => {
+				data.forEach(element => {
 					if (kmToMiles(haversine(element, l2)) > 0) {
 						returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' f away');
 					}
