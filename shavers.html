@@ -79,30 +79,31 @@
 				ThunkableWebviewerExtension.postMessage('object set');
 			}, 1500);
 
-			//create an array to return stuff
-			setTimeout(function () {
-				var returnObjects = [];
-				ThunkableWebviewerExtension.postMessage('create empty array');
-			}, 2000);
+		/*
+		//create an array to return stuff
+		setTimeout(function () {
+			var returnObjects = [];
+			ThunkableWebviewerExtension.postMessage('create empty array');
+		}, 2000);
 
-			//forEach item in object, conduct haversine.s
-			setTimeout(function () {
-				data.forEach(element => {
-					if (kmToMiles(haversine(element, l2)) > 0) {
-						returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' f away');
-					}
-				});
-			}, 2500);
+		//forEach item in object, conduct haversine.s
+		setTimeout(function () {
+			data.forEach(element => {
+				if (kmToMiles(haversine(element, l2)) > 0) {
+					returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' f away');
+				}
+			});
+		}, 2500);
 
-			setTimeout(() => {
-				ThunkableWebviewerExtension.postMessage(returnObjects);
-			}, 3000);
-
-
-		});
+		setTimeout(() => {
+			ThunkableWebviewerExtension.postMessage(returnObjects);
+		}, 3000);
 
 
+	});
 
+
+*/
 
 
 
