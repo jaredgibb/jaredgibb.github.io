@@ -66,8 +66,8 @@
 			//parse string from app into JSON object
 			setTimeout(function () {
 				var messageList = JSON.parse(message);
-				var index = messageList.index
-				var data = messageList.Locations
+				var index = messageList.index;
+				var data = messageList.Locations;
 				document.getElementById("result").innerHTML = data[index];
 				ThunkableWebviewerExtension.postMessage('data variable set');
 			}, 1000);
@@ -75,7 +75,7 @@
 			//set object = to property Locations from object messageList
 			setTimeout(function () {
 				var thingaling = []
-				thingaling.concat(data);
+				thingaling.concat(messageList.Locations);
 				ThunkableWebviewerExtension.postMessage('object set');
 			}, 1500);
 
@@ -98,12 +98,12 @@
 		setTimeout(() => {
 			ThunkableWebviewerExtension.postMessage(returnObjects);
 		}, 3000);
-
+*/
 
 	});
 
 
-*/
+
 
 
 
