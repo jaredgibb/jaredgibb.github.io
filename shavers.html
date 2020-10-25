@@ -73,7 +73,7 @@
 
 			//set object = to property Locations from object messageList
 			setTimeout(function () {
-				var object = messageList.Locations;
+				var thingaling = messageList.Locations;
 				ThunkableWebviewerExtension.postMessage('object set');
 			}, 1500);
 
@@ -85,7 +85,7 @@
 
 			//forEach item in object, conduct haversine.s
 			setTimeout(function () {
-				object.forEach(element => {
+				messageList.Locations.forEach(element => {
 					if (kmToMiles(haversine(element, l2)) > 0) {
 						returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' miles away');
 					}
