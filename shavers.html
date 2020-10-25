@@ -75,7 +75,7 @@
 				var data = messageList.Locations
 				var whatisit = typeof data;
 				ThunkableWebviewerExtension.postMessage(data[index]);
-				document.getElementById("result").innerHTML = whatisit ;
+				document.getElementById("result").innerHTML = data ;
 				var returnObjects = [];
 				data.forEach(element => {
 					if (kmToMiles(haversine(element, l2)) > 0) {
@@ -83,6 +83,7 @@
 					}
 				});
 				ThunkableWebviewerExtension.postMessage(returnObjects);
+				
 			}, 1000);
 
 /*
