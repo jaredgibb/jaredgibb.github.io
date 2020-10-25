@@ -46,25 +46,39 @@
 		var handful = [{ "City": "Homs", "Country": "Syria", "location({\"constraints\":[],\"type\":\"POINT\",\"srsId\":4326})": "POINT(36.72 34.73)", "population": 1005000, "location": [36.72, 34.73] }, { "City": "Cologne", "Country": "Germany", "location({\"constraints\":[],\"type\":\"POINT\",\"srsId\":4326})": "POINT(6.95 50.93)", "population": 1004000, "location": [6.95, 50.93] }, { "City": "Qinhuangdao", "Country": "China", "location({\"constraints\":[],\"type\":\"POINT\",\"srsId\":4326})": "POINT(119.62 39.9304)", "population": 1003000, "location": [119.62, 39.9304] }, { "City": "Fès", "Country": "Morocco", "location({\"constraints\":[],\"type\":\"POINT\",\"srsId\":4326})": "POINT(-5.0004 34.0546)", "population": 1002000, "location": [-5.0004, 34.0546] }, { "City": "Yongzhou", "Country": "China", "location({\"constraints\":[],\"type\":\"POINT\",\"srsId\":4326})": "POINT(111.62 26.2304)", "population": 1000000, "location": [111.62, 26.2304] }, { "City": "Baoshan", "Country": "China", "location({\"constraints\":[],\"type\":\"POINT\",\"srsId\":4326})": "POINT(99.15 25.12)", "population": 1000000, "location": [99.15, 25.12] }, { "City": "Aden", "Country": "Yemen", "location({\"constraints\":[],\"type\":\"POINT\",\"srsId\":4326})": "POINT(45.0095 12.7797)", "population": 1000000, "location": [45.0095, 12.7797] }, { "City": "Quảng Hà", "Country": "Vietnam", "location({\"constraints\":[],\"type\":\"POINT\",\"srsId\":4326})": "POINT(108.25 16.06)", "population": 1000000, "location": [108.25, 16.06] }, { "City": "Cochabamba", "Country": "Bolivia", "location({\"constraints\":[],\"type\":\"POINT\",\"srsId\":4326})": "POINT(-66.17 -17.41)", "population": 1000000, "location": [-66.17, -17.41] }]
 
 		ThunkableWebviewerExtension.receiveMessage(function (message) {
-			ThunkableWebviewerExtension.postMessage('start');
+			//start
+			setTimeout(function () {
+				ThunkableWebviewerExtension.postMessage('start');
+			}, 0);
 
-			var other = message
-			ThunkableWebviewerExtension.postMessage('other Set');
+			//set variable from message
+			setTimeout(function () {
+				var other = message
+				ThunkableWebviewerExtension.postMessage('other Set');
+			}, 500);
 
 			
-			var messageList = JSON.parse(message);
-			ThunkableWebviewerExtension.postMessage('parse message');
+			setTimeout(function () {
+				var messageList = JSON.parse(message);
+				ThunkableWebviewerExtension.postMessage(messageList);
+			}, 1000);
 
-			var object = messageList.Locations;
-			ThunkableWebviewerExtension.postMessage('set object');
-
-			var returnObjects = [];
-			ThunkableWebviewerExtension.postMessage('create empty array');
-
-			document.getElementById("result").innerHTML = messageList;
-			ThunkableWebviewerExtension.postMessage('done');					
-						
 			
+			setTimeout(function () {
+				var object = messageList.Locations;
+				ThunkableWebviewerExtension.postMessage(object);
+			}, 1500);
+
+			setTimeout(function () {
+				var returnObjects = [];
+				ThunkableWebviewerExtension.postMessage('create empty array');
+			}, 2000);
+
+			setTimeout(function () {
+				document.getElementById("result").innerHTML = messageList;
+				ThunkableWebviewerExtension.postMessage('done');
+			}, 2500);
+
 
 		});
 
