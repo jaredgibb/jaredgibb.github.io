@@ -75,7 +75,7 @@
 				var data = messageList.Locations
 				var whatisit = typeof data;
 				ThunkableWebviewerExtension.postMessage(whatisit);
-				document.getElementById("result").innerHTML = data[index];
+				document.getElementById("result").innerHTML = typeof data + data[index];
 				
 			}, 1000);
 
