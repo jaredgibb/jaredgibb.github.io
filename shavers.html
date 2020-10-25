@@ -47,7 +47,7 @@
 
 		ThunkableWebviewerExtension.receiveMessage(function (message) {
 		 var messageList = JSON.parse(message);
-			var object = message.data;
+			var object = messageList.data;
 			var returnObjects = [];
 
 			//wait until object is loaded
