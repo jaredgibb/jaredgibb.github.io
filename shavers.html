@@ -81,7 +81,7 @@
 			setTimeout(function () {
 				var thingaling = [];
 				thingaling.push(data);
-				ThunkableWebviewerExtension.postMessage('thingaling set');
+				ThunkableWebviewerExtension.postMessage(typeof data);
 			}, 1500);
 
 			//create an array to return stuff
