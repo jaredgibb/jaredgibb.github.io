@@ -69,12 +69,13 @@
 				var index = messageList.index
 				var data = messageList.Locations
 				document.getElementById("result").innerHTML = data[index];
-				ThunkableWebviewerExtension.postMessage('data variable');
+				ThunkableWebviewerExtension.postMessage('data variable set');
 			}, 1000);
 
 			//set object = to property Locations from object messageList
 			setTimeout(function () {
-				var thingaling = data;
+				var thingaling = [];
+				thingaling.concat(data);
 				ThunkableWebviewerExtension.postMessage('thingaling set');
 			}, 1500);
 
