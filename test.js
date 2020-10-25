@@ -34,3 +34,14 @@ object.forEach(element => {
 });
 
 console.log(returnObjects)
+
+
+
+			
+			/*
+			object.forEach(element => {
+				if (kmToMiles(haversine(element, l2)) > 0) {
+					returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' miles away');
+				}
+			});
+			*/
