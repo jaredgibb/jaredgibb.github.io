@@ -73,9 +73,10 @@
 				var messageList = JSON.parse(message);
 				var index = messageList.index
 				var data = messageList.Locations
-				document.getElementById("result").innerHTML = data[index];
 				var whatisit = typeof data;
 				ThunkableWebviewerExtension.postMessage(whatisit);
+				document.getElementById("result").innerHTML = data[index];
+				
 			}, 1000);
 
 /*
