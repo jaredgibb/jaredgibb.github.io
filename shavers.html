@@ -47,18 +47,20 @@
 
 		ThunkableWebviewerExtension.receiveMessage(function (message) {
 			
-			var messageList = JSON.parse(message);
-			var object = messageList.data;
+			var object = message;
 			var returnObjects = [];
 			document.getElementById("result").innerHTML = object;
 			
 			object.forEach(element => {
-						if (kmToMiles(haversine(element, l2)) > 0) {
-							returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' miles away');
-						}
-					});
+				if (kmToMiles(haversine(element, l2)) > 0) {
+					returnObjects.push(element.City + ' is ' + kmToMiles(haversine(element, l2)) + ' miles away');
+				}
+			});
 			
-					ThunkableWebviewerExtension.postMessage(returnObjects + 'done');
+			ThunkableWebviewerExtension.postMessage(returnObjects + 'done');						
+					
+					
+			
 
 		});
 
