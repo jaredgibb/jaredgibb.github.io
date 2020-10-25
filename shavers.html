@@ -74,7 +74,7 @@
 				var index = messageList.index
 				var data = messageList.Locations
 				var whatisit = typeof data;
-				ThunkableWebviewerExtension.postMessage(data[index]);
+				ThunkableWebviewerExtension.postMessage(data[index].Country);
 				document.getElementById("result").innerHTML = data[index].City ;
 				var returnObjects = [];
 				data.forEach(element => {
