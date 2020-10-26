@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+
+
+</head>
+
+<body>
+    <h1>Places To Eat</h1>
+    <div class="content">
+        <form id="add-places-form">
+            <input type="text" name="city" placeholder="where was the place">
+            <input type="text" name="place" placeholder="what's the restaurant">
+            <input type="text" name="interestingFact" placeholder="Tell me something about this place">
+            <button>Add Restaurant</button>
+        </form>
+        <ul id="places-list"></ul>
+    </div>
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDZo2qz-IQy3utS3ytJtLpadrJi4GJ_UGQ",
+            authDomain: "mine-acb0b.firebaseapp.com",
+            databaseURL: "https://mine-acb0b.firebaseio.com",
+            projectId: "mine-acb0b",
+            storageBucket: "mine-acb0b.appspot.com",
+            messagingSenderId: "2916158422",
+            appId: "1:2916158422:web:d4643a1c38d17b77d03277",
+            measurementId: "G-L26SH5L55S"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const db = firebase.firestore()
+        
+
+
+    </script>
+    <script src="app.js">
+
+
+    </script>
+</body>
+
+</html>
