@@ -11,6 +11,9 @@ function renderPlaces(doc){
     let city = document.createElement('span');
     let interestingFact = document.createElement('span');
     let cross = document.createElement('div');
+    let button = document.createElement('button')
+    let input = document.createElement('input')
+    
 
     //set the visual properties
     li.setAttribute('data-id', doc.id);
@@ -18,12 +21,20 @@ function renderPlaces(doc){
     city.textContent = doc.data().City;
     interestingFact.textContent = doc.data().interestingFact;
     cross.textContent = 'x';
+    button.textContent = 'edit';
+    input.placeholder = 'typeshithere'
+    input.setAttribute("id", doc.id)
+    let inputID = doc.id;
+
 
     //add the items set above to the list item 'li'
     li.appendChild(place)
     li.appendChild(city)
     li.appendChild(interestingFact)
     li.appendChild(cross)
+    li.appendChild(button)
+    li.appendChild(input)
+
 
     //append the list item to the list of list items
     placesList.appendChild(li)
@@ -35,9 +46,23 @@ function renderPlaces(doc){
         db.collection('places').doc(id).delete();
     })
 
+
+
+    //update a place 'interestingFact'
+    button.addEventListener('click', (e) => {
+
+        e.stopPropagation();
+        let id = e.target.parentElement.getAttribute('data-id');
+        db.collection('places').doc(id).update({
+            interestingFact: document.getElementById(inputID).value
+        })
+        document.getElementById(inputID).value = ""
+    })
 }
 
 
+
+/*
 //get docs from firestore
 db.collection('places').where('City', '>', 'A').get().then((snapshot) => {
     snapshot.docs.forEach(doc => {
@@ -45,7 +70,7 @@ db.collection('places').where('City', '>', 'A').get().then((snapshot) => {
         renderPlaces(doc)
     })
 })
-
+*/
 
 //saving document to collection
 
@@ -63,4 +88,22 @@ form.addEventListener('submit',(e) =>{
     form.place.value = '';
     form.city.value = '';
     form.interestingFact.value = '';
+})
+
+
+
+
+//real-time listener
+db.collection('places').orderBy('City').onSnapshot(snapshot => {
+    let changes = snapshot.docChanges();
+    changes.forEach(change => {
+        if(change.type === 'added'){
+            renderPlaces(change.doc);
+        } else if (changes.type == 'modified') {
+            renderPlaces(change.doc);
+        } else if (change.type ==='removed') {
+            let li = placesList.querySelector('[data-id=' + change.doc.id + ']');
+            placesList.removeChild(li);
+        } 
+    })
 })
