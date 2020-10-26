@@ -31,7 +31,7 @@
     var lat = parseFloat($("#querylat").val());
     var lon = parseFloat($("#querylon").val());
     var radius = parseFloat($("#queryradius").val());
-    var operation;
+    var operation = 'words';
 
     geoQuery = geoFireInstance.query({
       center: [lat, lon],
