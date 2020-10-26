@@ -17,7 +17,7 @@
     var lat = parseFloat($("#addlat").val());
     var lon = parseFloat($("#addlon").val());
    // var myID = "fish-" + firebaseRef.push().key;
-    var myID = $("#name").val()+'-'+ firebaseRef.push().key;
+    var myID = $("#name").val()+'-_'+ firebaseRef.push().key;
 
 
     geoFireInstance.set(myID,[lat, lon]).then(function() {
@@ -33,6 +33,20 @@
     var radius = parseFloat($("#queryradius").val());
     var operation;
 
+    geoQuery = geoFireInstance.query({
+      center: [lat, lon],
+      radius: radius
+    });
+
+    geoQuery.on("key_entered", function(key, location, distance) {
+      log(key + " is located at [" + location + "] which is within the query (" + distance.toFixed(2) + " km from center)");
+    });
+
+    geoQuery.on("key_exited", function(key, location, distance) {
+      console.log(key, location, distance);
+      log(key + " is located at [" + location + "] which is no longer within the query (" + distance.toFixed(2) + " km from center)");
+    });
+/*
     if (typeof geoQuery !== "undefined") {
       operation = "Updating";
 
@@ -58,7 +72,7 @@
         log(key + " is located at [" + location + "] which is no longer within the query (" + distance.toFixed(2) + " km from center)");
       });
     }
-
+*/
     log(operation + " the query: centered at [" + lat + "," + lon + "] with radius of " + radius + "km")
 
     return false;
