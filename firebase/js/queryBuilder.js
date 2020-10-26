@@ -16,7 +16,8 @@
   $("#addfish").on("submit", function() {
     var lat = parseFloat($("#addlat").val());
     var lon = parseFloat($("#addlon").val());
-    var myID = "fish-" + firebaseRef.push().key;
+   // var myID = "fish-" + firebaseRef.push().key;
+    var myID = $("#name").val();
 
     geoFireInstance.set(myID, [lat, lon]).then(function() {
       log(myID + ": setting position to [" + lat + "," + lon + "]");
