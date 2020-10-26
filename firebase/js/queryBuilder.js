@@ -18,9 +18,9 @@
     var lon = parseFloat($("#addlon").val());
    // var myID = "fish-" + firebaseRef.push().key;
     var myID = $("#name").val()+'-'+ firebaseRef.push().key;
-    var poop = $("#name").val()
 
-    geoFireInstance.set({"id":myID, "position":[lat, lon],"name":poop}).then(function() {
+
+    geoFireInstance.set(myID,[lat, lon]).then(function() {
       log(myID + ": setting position to [" + lat + "," + lon + "]");
     });
 
