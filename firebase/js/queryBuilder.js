@@ -7,7 +7,7 @@
   });
 
   // Generate a random Firebase location
-  var firebaseRef = firebase.database().ref().push();
+  var firebaseRef = firebase.database().ref('/locations');
 
   // Create a new GeoFire instance at the random Firebase location
   var geoFireInstance = new geofire.GeoFire(firebaseRef);
