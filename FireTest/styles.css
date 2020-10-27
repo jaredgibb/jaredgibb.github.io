@@ -11,6 +11,14 @@ h1{
     text-align: center;
 }
 
+h4{
+    color: #fff;
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin-top: 10px
+    text-align: center;
+}
+
 .content{
     background: #fff;
     max-width: 960px;
