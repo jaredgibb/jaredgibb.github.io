@@ -99,6 +99,7 @@ db.collection('places').orderBy('City').onSnapshot(snapshot => {
     changes.forEach(change => {
         if(change.type === 'added'){
             renderPlaces(change.doc);
+            console.log(change.doc)
         } else if (changes.type == 'modified') {
             renderPlaces(change.doc);
         } else if (change.type ==='removed') {

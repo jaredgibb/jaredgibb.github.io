@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>GeoFirestore Viewers</title>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
+
+  <!-- Firebase Configuration -->
+  <script>
+    var config = {
+      apiKey: "AIzaSyDZo2qz-IQy3utS3ytJtLpadrJi4GJ_UGQ",
+      databaseURL: "https://mine-acb0b.firebaseio.com",
+    projectId: "mine-acb0b"
+    };
+    firebase.initializeApp(config);
+
+    const firestore = firebase.firestore();
+  </script>
+
+  <!-- GeoFirestore -->
+  <script src="https://unpkg.com/geofirestore/dist/geofirestore.js"></script>
+
+  <!-- Geokit -->
+  <script src="https://unpkg.com/geokit/dist/geokit.js"></script>
+
+  <!-- Google Maps -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFnedGL4qr_jenIpWYpbvot8s7Vuay_88&callback=initMap" async
+    defer></script>
+
+  <!-- Custom JS -->
+  <script src="js/viewers.js" defer></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/viewers.css">
+</head>
+
+<body>
+  <div id="map"></div>
+  <button id="submit">submit</button>
+</body>
+<script>
+</script>
+</html>
