@@ -3,7 +3,7 @@ const geoFirestore = new GeoFirestore(firestore);
 const geoCollectionRef = geoFirestore.collection('viewers');
 let subscription;
 const markers = {};
-const radius = 20000;
+const radius = 10000;
 
 // Query viewers' locations from Firestore
 function queryFirestore(location) {
@@ -47,12 +47,35 @@ function addFromThunkable (lat,lon, city, interestingFact) {
       lat: lat,
       lng: lon,
     }
-    getInFirestore(thunkableInput, city, interestingFact);
+    thunkToFirestore(thunkableInput, city, interestingFact);
 };
 
 
+function thunkToFirestore (thunkInput, city, interestingFact) {
+    thunkInput.lat = Number(thunkInput.lat.toFixed(1));
+    thunkInput.lon = Number(thunkInput.lng.toFixed(1));
+    const hash = Geokit.hash(thunkInput);
+  
+    geoCollectionRef.doc(hash).get().then((snapshot) => {
+      let data = snapshot.data();
+      console.log(data)
+      if (!data) {
+        data = {
+          city: city,
+          interestingFact: interestingFact,
+          coordinates: new firebase.firestore.GeoPoint(thunkInput.lat, thunkInput.lng)
+        };
+        
+        console.log('Provided key is not in Firestore, adding document: ', JSON.stringify(data));
+        createInFirestore(hash, data);
+      } 
+    }, (error) => {
+      console.log('Error: ' + error);
+    });
+}
+
 // First find if viewer's location is in Firestore
-function getInFirestore(location, city, interestingFact) {
+function getInFirestore(location) {
   location.lat = Number(location.lat.toFixed(1));
   location.lng = Number(location.lng.toFixed(1));
   const hash = Geokit.hash(location);
@@ -61,14 +84,13 @@ function getInFirestore(location, city, interestingFact) {
     let data = snapshot.data();
     if (!data) {
       data = {
-        city: city,
-        interestingFact: interestingFact,
+        count: 1,
         coordinates: new firebase.firestore.GeoPoint(location.lat, location.lng)
       };
       console.log('Provided key is not in Firestore, adding document: ', JSON.stringify(data));
       createInFirestore(hash, data);
     } else {
-
+      data.count++;
       console.log('Provided key is in Firestore, updating document: ', JSON.stringify(data));
       updateInFirestore(hash, data);
     }
