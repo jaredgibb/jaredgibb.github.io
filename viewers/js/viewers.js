@@ -238,9 +238,8 @@ function consoleer(a,b,c,d){
 }
 
 
-///
+///on click, send form location to firestore
 document.getElementById("submitForm").addEventListener("click", function(){
- 
   thunkIt()
 });
 
@@ -261,7 +260,7 @@ function thunkIt (){
   getIntoFirestore(userLocation, cityName, interestingFact);
   console.log('location recieved, trying to send to firestore')
 }
-//First find if viewer's location is in Firestore
+//First find if location is in Firestore
 function getIntoFirestore(location, cityName, interestingFact) {
   location.lat = parseFloat(location.lat);
   location.lng = parseFloat(location.lng);
