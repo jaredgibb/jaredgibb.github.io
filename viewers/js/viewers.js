@@ -20,8 +20,17 @@ function queryFirestore(location) {
 
   console.log('New query subscription created');
   subscription = query.onSnapshot((snapshot) => {
-    console.log(snapshot.docChanges())
+    console.log(snapshot.docChanges()) 
+
+    let returnArray =[]
     snapshot.docChanges().forEach((change) => {
+       returnArray.push(
+         {placeObject:change.doc.data(),
+        distance:change.doc.distance})
+    })
+    console.log(returnArray)
+    snapshot.docChanges().forEach((change) => {
+      
       switch (change.type) {
         case 'added':
           console.log('Snapshot detected added marker');
@@ -38,7 +47,6 @@ function queryFirestore(location) {
     });
   });
 }
-
 
 
 
