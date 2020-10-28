@@ -23,8 +23,9 @@ function queryFirestore(location) {
     console.log(snapshot.docChanges()) 
 
     snapshot.docChanges().forEach((change) => {
+      let distance = change.doc.distance * 0.6214
        returnArray.push({'placeInformation':change.doc.data(),
-        'distance':change.doc.distance})
+        'distance':distance + 'miles'})
     })
     console.log(returnArray)
 
