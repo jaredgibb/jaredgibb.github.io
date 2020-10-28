@@ -238,19 +238,17 @@ function consoleer(a,b,c,d){
 }
 
 
-
+///
 document.getElementById("submitForm").addEventListener("click", function(){
  
-  let city = document.getElementById("element_3").value
-  let fact = document.getElementById("element_4").value
-
-  //consoleer(_latInput, _lonInput, city, fact)
-  thunkIt(city, fact)
+  thunkIt()
 });
 
-function thunkIt (cityName, interestingFact){
+function thunkIt (){
   let one= document.getElementById("element_1").value
   let two= document.getElementById("element_2").value
+  let cityName = document.getElementById("element_3").value
+  let interestingFact = document.getElementById("element_4").value
   document.getElementById("element_1").value = ""
   document.getElementById("element_2").value = ""
   document.getElementById("element_3").value = ""
@@ -299,7 +297,7 @@ function createIntoFirestore(key, data) {
   });
 }
 
-// Update viewer's location in Firestore
+/// Update viewer's location in Firestore
 function updateIntoFirestore(key, data) {
   geoCollectionRef.doc(key).update(data).then(() => {
     console.log('Provided document has been updated in Firestore');
