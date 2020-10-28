@@ -127,6 +127,11 @@ function initMap() {
     },
     zoom: 8
   });
+  let infoWindow = new google.maps.InfoWindow({
+    content: "Click the map to get Lat/Lng!",
+    position: userLocation,
+  });
+  infoWindow.open(map);
  map.addListener("click", (mapsMouseEvent) => {
     // Close the current InfoWindow.
     infoWindow.close();
@@ -138,6 +143,10 @@ function initMap() {
       JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
     );
     infoWindow.open(map);
+
+    document.getElementById("element_1").value = userLocation.lat
+    document.getElementById("element_2").value = userLocation.lng
+
   });
 
   
