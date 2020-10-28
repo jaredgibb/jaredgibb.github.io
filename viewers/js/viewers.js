@@ -3,7 +3,7 @@ const geoFirestore = new GeoFirestore(firestore);
 const geoCollectionRef = geoFirestore.collection('viewers');
 let subscription;
 const markers = {};
-const radius = 40000;
+const radius = 400000;
 
 // Query viewers' locations from Firestore
 function queryFirestore(location) {
@@ -127,7 +127,18 @@ function initMap() {
     },
     zoom: 8
   });
-
+ map.addListener("click", (mapsMouseEvent) => {
+    // Close the current InfoWindow.
+    infoWindow.close();
+    // Create a new InfoWindow.
+    infoWindow = new google.maps.InfoWindow({
+      position: mapsMouseEvent.latLng,
+    });
+    infoWindow.setContent(
+      JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+    );
+    infoWindow.open(map);
+  });
 
   
 
@@ -217,17 +228,21 @@ document.getElementById("submitForm").addEventListener("click", function(){
 });
 
 function thunkIt (cityName, interestingFact){
+  let one= document.getElementById("element_1").value
+  let two= document.getElementById("element_2").value
+  
+  
   userLocation = {
-    lat: 42.2014314,
-    lng: -85.5905581
+    lat: one,
+    lng: two
   };
   getIntoFirestore(userLocation, cityName, interestingFact);
   console.log('location recieved, trying to send to firestore')
 }
 //First find if viewer's location is in Firestore
 function getIntoFirestore(location, cityName, interestingFact) {
-  location.lat = Number(location.lat.toFixed(1));
-  location.lng = Number(location.lng.toFixed(1));
+  location.lat = parseFloat(location.lat);
+  location.lng = parseFloat(location.lng);
   const hash = Geokit.hash(location);
 
   geoCollectionRef.doc(hash).get().then((snapshot) => {
@@ -260,3 +275,11 @@ function createIntoFirestore(key, data) {
   });
 }
 
+// Update viewer's location in Firestore
+function updateIntoFirestore(key, data) {
+  geoCollectionRef.doc(key).update(data).then(() => {
+    console.log('Provided document has been updated in Firestore');
+  }, (error) => {
+    console.log('Error: ' + error);
+  });
+}
