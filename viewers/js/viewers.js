@@ -3,7 +3,7 @@ const geoFirestore = new GeoFirestore(firestore);
 const geoCollectionRef = geoFirestore.collection('viewers');
 let subscription;
 const markers = {};
-const radius = 10000;
+const radius = 40000;
 
 // Query viewers' locations from Firestore
 function queryFirestore(location) {
@@ -39,40 +39,37 @@ function queryFirestore(location) {
   });
 }
 
-document.getElementById("submit").addEventListener("click", addFromThunkable(22,85,'hello','crab'));
-var thunkableInput;
-//get input from thunkable, format data 
-function addFromThunkable (lat,lon, city, interestingFact) {
-    thunkableInput = {
-      lat: lat,
-      lng: lon,
-    }
-    thunkToFirestore(thunkableInput, city, interestingFact);
-};
 
 
-function thunkToFirestore (thunkInput, city, interestingFact) {
-    thunkInput.lat = Number(thunkInput.lat.toFixed(1));
-    thunkInput.lon = Number(thunkInput.lng.toFixed(1));
-    const hash = Geokit.hash(thunkInput);
-  
-    geoCollectionRef.doc(hash).get().then((snapshot) => {
-      let data = snapshot.data();
-      console.log(data)
-      if (!data) {
-        data = {
-          city: city,
-          interestingFact: interestingFact,
-          coordinates: new firebase.firestore.GeoPoint(thunkInput.lat, thunkInput.lng)
-        };
-        
-        console.log('Provided key is not in Firestore, adding document: ', JSON.stringify(data));
-        createInFirestore(hash, data);
-      } 
-    }, (error) => {
-      console.log('Error: ' + error);
+
+// Get users location
+navigator.geolocation.getCurrentPosition((success) => {
+  userLocation = {
+    lat: success.coords.latitude,
+    lng: success.coords.longitude
+  };
+
+waitForElement()
+}, console.log);
+
+function waitForElement(){
+  if(typeof userLocation !== "undefined"){
+    map.setCenter(userLocation);
+
+    new google.maps.Marker({
+      position: userLocation,
+      map: map,
+      icon: './assets/bluedot.png'
     });
+  
+    // Add viewer's location to Firestore
+    getInFirestore(userLocation);
+  }
+  else{
+      setTimeout(waitForElement, 250);
+  }
 }
+
 
 // First find if viewer's location is in Firestore
 function getInFirestore(location) {
@@ -85,7 +82,7 @@ function getInFirestore(location) {
     if (!data) {
       data = {
         count: 1,
-        coordinates: new firebase.firestore.GeoPoint(location.lat, location.lng)
+        coordinates: new firebase.firestore.GeoPoint(location.lat, location.lng),
       };
       console.log('Provided key is not in Firestore, adding document: ', JSON.stringify(data));
       createInFirestore(hash, data);
@@ -132,23 +129,7 @@ function initMap() {
   });
 
 
-  // Get users location
-  navigator.geolocation.getCurrentPosition((success) => {
-    userLocation = {
-      lat: success.coords.latitude,
-      lng: success.coords.longitude
-    };
-    map.setCenter(userLocation);
-    new google.maps.Marker({
-      position: userLocation,
-      map: map,
-      icon: './assets/bluedot.png'
-    });
-
-    // Add viewer's location to Firestore
-    getInFirestore(userLocation);
-  }, console.log);
-
+  
 
 
 
@@ -171,6 +152,9 @@ function initMap() {
 // Add Marker to Google Maps
 function addMarker(key, data) {
   if (!markers[key]) {
+    var infowindow = new google.maps.InfoWindow({
+      content: data.count + ' people from this area have viewed this page'
+    });
 
     markers[key] = new google.maps.Marker({
       position: {
@@ -180,7 +164,9 @@ function addMarker(key, data) {
       map: map
     });
 
- 
+    markers[key].addListener('click', function () {
+      infowindow.open(map, markers[key]);
+    });
   }
 }
 
@@ -197,7 +183,7 @@ function removeMarker(key) {
 function updateMarker(key, data) {
   if (markers[key]) {
     var infowindow = new google.maps.InfoWindow({
-      content: data.count + ' people from this area have viewed this page'
+      content: 'This town is called' + data.city
     });
 
     markers[key].setPosition({
@@ -214,3 +200,63 @@ function updateMarker(key, data) {
     addMarker(key, data);
   }
 }
+
+function consoleer(a,b,c,d){
+  console.log(a + b + c + d)
+}
+
+
+
+document.getElementById("submitForm").addEventListener("click", function(){
+ 
+  let city = document.getElementById("element_3").value
+  let fact = document.getElementById("element_4").value
+
+  //consoleer(_latInput, _lonInput, city, fact)
+  thunkIt(city, fact)
+});
+
+function thunkIt (cityName, interestingFact){
+  userLocation = {
+    lat: 42.2014314,
+    lng: -85.5905581
+  };
+  getIntoFirestore(userLocation, cityName, interestingFact);
+  console.log('location recieved, trying to send to firestore')
+}
+//First find if viewer's location is in Firestore
+function getIntoFirestore(location, cityName, interestingFact) {
+  location.lat = Number(location.lat.toFixed(1));
+  location.lng = Number(location.lng.toFixed(1));
+  const hash = Geokit.hash(location);
+
+  geoCollectionRef.doc(hash).get().then((snapshot) => {
+    let data = snapshot.data();
+    if (!data) {
+      data = {
+        count: 1,
+        coordinates: new firebase.firestore.GeoPoint(location.lat, location.lng),
+        city: cityName,
+        fact: interestingFact
+      };
+      console.log('Provided key is not in Firestore, adding document: ', JSON.stringify(data));
+      createIntoFirestore(hash, data);
+    } else {
+      data.count++;
+      console.log('Provided key is in Firestore, updating document: ', JSON.stringify(data));
+      updateIntoFirestore(hash, data);
+    }
+  }, (error) => {
+    console.log('Error: ' + error);
+  });
+}
+
+
+function createIntoFirestore(key, data) {
+  geoCollectionRef.doc(key).set(data).then(() => {
+    console.log('Provided document has been added in Firestore');
+  }, (error) => {
+    console.log('Error: ' + error);
+  });
+}
+
