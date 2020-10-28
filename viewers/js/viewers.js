@@ -23,10 +23,11 @@ function queryFirestore(location) {
     console.log(snapshot.docChanges()) 
 
     snapshot.docChanges().forEach((change) => {
-       returnArray.push({placeObject:change.doc.data(),
-        distance:change.doc.distance})
+       returnArray.push({'placeInformation':change.doc.data(),
+        'distance':change.doc.distance})
     })
     console.log(returnArray)
+
     snapshot.docChanges().forEach((change) => {
       
       switch (change.type) {
