@@ -3,7 +3,7 @@ const geoFirestore = new GeoFirestore(firestore);
 const geoCollectionRef = geoFirestore.collection('viewers');
 let subscription;
 const markers = {};
-const radius = 400000;
+const radius = 10000;
 
 // Query viewers' locations from Firestore
 function queryFirestore(location) {
@@ -127,11 +127,15 @@ function initMap() {
     },
     zoom: 8
   });
+
   let infoWindow = new google.maps.InfoWindow({
     content: "Click the map to get Lat/Lng!",
     position: userLocation,
   });
+
   infoWindow.open(map);
+
+
  map.addListener("click", (mapsMouseEvent) => {
     // Close the current InfoWindow.
     infoWindow.close();
@@ -144,8 +148,8 @@ function initMap() {
     );
     infoWindow.open(map);
 
-    document.getElementById("element_1").value = userLocation.lat
-    document.getElementById("element_2").value = userLocation.lng
+    document.getElementById("element_1").value = mapsMouseEvent.latLng.toJSON().lat
+    document.getElementById("element_2").value = mapsMouseEvent.latLng.toJSON().lng
 
   });
 
@@ -173,7 +177,7 @@ function initMap() {
 function addMarker(key, data) {
   if (!markers[key]) {
     var infowindow = new google.maps.InfoWindow({
-      content: data.count + ' people from this area have viewed this page'
+      content: 'City: ' + data.city + '\n' + 'Fact: ' + data.fact
     });
 
     markers[key] = new google.maps.Marker({
@@ -239,7 +243,10 @@ document.getElementById("submitForm").addEventListener("click", function(){
 function thunkIt (cityName, interestingFact){
   let one= document.getElementById("element_1").value
   let two= document.getElementById("element_2").value
-  
+  document.getElementById("element_1").value = ""
+  document.getElementById("element_2").value = ""
+  document.getElementById("element_3").value = ""
+  document.getElementById("element_4").value = ""
   
   userLocation = {
     lat: one,
