@@ -4,7 +4,7 @@ const geoCollectionRef = geoFirestore.collection('viewers');
 let subscription;
 const markers = {};
 const radius = 10000;
-
+const returnArray =[]
 // Query viewers' locations from Firestore
 function queryFirestore(location) {
   if (subscription) {
@@ -22,10 +22,8 @@ function queryFirestore(location) {
   subscription = query.onSnapshot((snapshot) => {
     console.log(snapshot.docChanges()) 
 
-    let returnArray =[]
     snapshot.docChanges().forEach((change) => {
-       returnArray.push(
-         {placeObject:change.doc.data(),
+       returnArray.push({placeObject:change.doc.data(),
         distance:change.doc.distance})
     })
     console.log(returnArray)
