@@ -3,7 +3,7 @@ const geoFirestore = new GeoFirestore(firestore);
 const geoCollectionRef = geoFirestore.collection('viewers');
 let subscription;
 const markers = {};
-const radius = 10000;
+const radius = 1000;
 const returnArray =[];
 // Query viewers' locations from Firestore
 function queryFirestore(location) {
@@ -61,7 +61,7 @@ waitForElement()
 }, console.log);
 
 function waitForElement(){
-  if(typeof userLocation !== "undefined"){
+  if(typeof map !== "undefined"){
     map.setCenter(userLocation);
 
     new google.maps.Marker({
@@ -121,19 +121,23 @@ function updateInFirestore(key, data) {
     console.log('Error: ' + error);
   });
 }
-
+let geocoder;
 
 // Initialize Map
 function initMap() {
+   geocoder = new google.maps.Geocoder();
+
   var userLocation;
   var mapCenter;
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
-      lat: 41.3083,
-      lng: -72.9279
+      lat: 43.3083,
+      lng: -85.9279
     },
     zoom: 8
+
+    
   });
 
   let infoWindow = new google.maps.InfoWindow({
@@ -145,6 +149,8 @@ function initMap() {
 
 
  map.addListener("click", (mapsMouseEvent) => {
+   let a;
+   let b;
     // Close the current InfoWindow.
     infoWindow.close();
     // Create a new InfoWindow.
@@ -156,9 +162,11 @@ function initMap() {
     );
     infoWindow.open(map);
 
-    document.getElementById("element_1").value = mapsMouseEvent.latLng.toJSON().lat
-    document.getElementById("element_2").value = mapsMouseEvent.latLng.toJSON().lng
-
+    a = mapsMouseEvent.latLng.toJSON().lat
+    b = mapsMouseEvent.latLng.toJSON().lng
+    document.getElementById("element_1").value = a
+    document.getElementById("element_2").value = b
+    geocodeLatLng(a,b)
   });
 
   
@@ -302,5 +310,29 @@ function updateIntoFirestore(key, data) {
     console.log('Provided document has been updated in Firestore');
   }, (error) => {
     console.log('Error: ' + error);
+  });
+}
+
+let returnAddress;
+
+function geocodeLatLng(lat,lng) {
+  let latlng = {
+    lat: lat,
+    lng: lng,
+  };
+  geocoder.geocode({ location: latlng }, (results, status) => {
+    if (status === "OK") {
+      if (results[0]) {
+
+        console.log(results[0].address_components[2].long_name)
+        //console.log(JSON.stringify(results))
+        document.getElementById("element_3").value = results[0].address_components[2].long_name;
+
+      } else {
+        console.log("No results found");
+      }
+    } else {
+     console.log("Geocoder failed due to: " + status);
+    }
   });
 }
