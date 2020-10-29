@@ -12,8 +12,9 @@
 	<!-- Firebase -->
 	<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx18kg_FpncS4IH7oOQWHDETYO-gbWkpM&callback=initMap"
-	type="text/javascript"></script>
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx18kg_FpncS4IH7oOQWHDETYO-gbWkpM&callback=initMap"
+		type="text/javascript"></script>
 	<!-- Firebase Configuration -->
 	<script>
 		var config = {
@@ -53,14 +54,22 @@
 			<div id="map"></div>
 		</div>
 		<div class="column">
+			<h2>Toggle Switch</h2>
+
+			<label class="switch">
+				<input type="checkbox">
+				<div class="slider"></div>
+			</label>
+
 			<img id="top" src="top.png" alt="">
 			<div id="form_container">
 
-				<h1><a>Untitled Form</a></h1>
+				<h1><a>Locations</a></h1>
 				<form id="form_4505" class="appnitro" method="post" action="">
 					<div class="form_description">
 						<h2>Add a Spot</h2>
-						<p>This is a form that allows you to add a location to Firebase such that it may appear in a local search!</p>
+						<p>This is a form that allows you to add a location to Firebase such that it may appear in a
+							local search!</p>
 					</div>
 					<ul>
 
