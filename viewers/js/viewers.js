@@ -4,7 +4,8 @@ const geoCollectionRef = geoFirestore.collection('viewers');
 let subscription;
 const markers = {};
 const radius = 1000;
-const returnArray =[];
+const returnArray = [];
+
 // Query viewers' locations from Firestore
 function queryFirestore(location) {
   if (subscription) {
@@ -20,17 +21,19 @@ function queryFirestore(location) {
 
   console.log('New query subscription created');
   subscription = query.onSnapshot((snapshot) => {
-    console.log(snapshot.docChanges()) 
+    console.log(snapshot.docChanges())
 
     snapshot.docChanges().forEach((change) => {
       let distance = change.doc.distance * 0.6214
-       returnArray.push({'placeInformation':change.doc.data(),
-        'distance':distance + 'miles'})
+      returnArray.push({
+        'placeInformation': change.doc.data(),
+        'distance': distance + 'miles'
+      })
     })
     console.log(returnArray)
 
     snapshot.docChanges().forEach((change) => {
-      
+
       switch (change.type) {
         case 'added':
           console.log('Snapshot detected added marker');
@@ -57,11 +60,11 @@ navigator.geolocation.getCurrentPosition((success) => {
     lng: success.coords.longitude
   };
 
-waitForElement()
+  waitForElement()
 }, console.log);
 
-function waitForElement(){
-  if(typeof map !== "undefined"){
+function waitForElement() {
+  if (typeof map !== "undefined") {
     map.setCenter(userLocation);
 
     new google.maps.Marker({
@@ -69,12 +72,12 @@ function waitForElement(){
       map: map,
       icon: './assets/bluedot.png'
     });
-  
+
     // Add viewer's location to Firestore
     getInFirestore(userLocation);
   }
-  else{
-      setTimeout(waitForElement, 250);
+  else {
+    setTimeout(waitForElement, 250);
   }
 }
 
@@ -126,7 +129,7 @@ var checkbox = document.querySelector('input[type="checkbox"]');
 
 // Initialize Map
 function initMap() {
-   geocoder = new google.maps.Geocoder();
+  geocoder = new google.maps.Geocoder();
 
   var userLocation;
   var mapCenter;
@@ -138,7 +141,7 @@ function initMap() {
     },
     zoom: 8
 
-    
+
   });
 
   let infoWindow = new google.maps.InfoWindow({
@@ -150,9 +153,9 @@ function initMap() {
 
   //control what happens when a user clicks on the map. this is ultimately dependent upon the toggle. 
   //first get the lat and long, then do something with it
- map.addListener("click", (mapsMouseEvent) => {
-   let a;
-   let b;
+  map.addListener("click", (mapsMouseEvent) => {
+    let a;
+    let b;
     // Close the current InfoWindow.
     infoWindow.close();
     // Create a new InfoWindow.
@@ -169,18 +172,38 @@ function initMap() {
     document.getElementById("element_1").value = a
     document.getElementById("element_2").value = b
 
+    //if the toggle is on, what to do
     if (checkbox.checked) {
-      geocodeLatLng(a,b)
+      geocodeLatLng(a, b)
       console.log('Checked');
     } else {
-      // do that
+     
+      //what to do if the toggle is off
+      //get currrent location
+      navigator.geolocation.getCurrentPosition((success) => {
+        userLocation = {
+          lat: success.coords.latitude,
+          lng: success.coords.longitude
+        };
+
+      }, console.log);
+      //set new center of map
+      map.setCenter(userLocation);
+
+      //add center marker
+      new google.maps.Marker({
+        position: userLocation,
+        map: map,
+        icon: './assets/bluedot.png'
+      }); 
       console.log('Not checked');
+
     }
-    
-   
+
+
   });
 
-  
+
 
 
 
@@ -252,26 +275,26 @@ function updateMarker(key, data) {
   }
 }
 
-function consoleer(a,b,c,d){
+function consoleer(a, b, c, d) {
   console.log(a + b + c + d)
 }
 
 
 ///when you click submit, send form location to firestore and add marker to the map
-document.getElementById("submitForm").addEventListener("click", function(){
+document.getElementById("submitForm").addEventListener("click", function () {
   thunkIt()
 });
 
-function thunkIt (){
-  let one= document.getElementById("element_1").value
-  let two= document.getElementById("element_2").value
+function thunkIt() {
+  let one = document.getElementById("element_1").value
+  let two = document.getElementById("element_2").value
   let cityName = document.getElementById("element_3").value
   let interestingFact = document.getElementById("element_4").value
   document.getElementById("element_1").value = ""
   document.getElementById("element_2").value = ""
   document.getElementById("element_3").value = ""
   document.getElementById("element_4").value = ""
-  
+
   userLocation = {
     lat: one,
     lng: two
@@ -326,7 +349,7 @@ function updateIntoFirestore(key, data) {
 
 let returnAddress;
 
-function geocodeLatLng(lat,lng) {
+function geocodeLatLng(lat, lng) {
   let latlng = {
     lat: lat,
     lng: lng,
@@ -343,7 +366,7 @@ function geocodeLatLng(lat,lng) {
         console.log("No results found");
       }
     } else {
-     console.log("Geocoder failed due to: " + status);
+      console.log("Geocoder failed due to: " + status);
     }
   });
 }
