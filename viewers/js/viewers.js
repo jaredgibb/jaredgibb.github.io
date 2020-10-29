@@ -122,6 +122,7 @@ function updateInFirestore(key, data) {
   });
 }
 let geocoder;
+var checkbox = document.querySelector('input[type="checkbox"]');
 
 // Initialize Map
 function initMap() {
@@ -147,7 +148,8 @@ function initMap() {
 
   infoWindow.open(map);
 
-
+  //control what happens when a user clicks on the map. this is ultimately dependent upon the toggle. 
+  //first get the lat and long, then do something with it
  map.addListener("click", (mapsMouseEvent) => {
    let a;
    let b;
@@ -166,7 +168,16 @@ function initMap() {
     b = mapsMouseEvent.latLng.toJSON().lng
     document.getElementById("element_1").value = a
     document.getElementById("element_2").value = b
-    geocodeLatLng(a,b)
+
+    if (checkbox.checked) {
+      geocodeLatLng(a,b)
+      console.log('Checked');
+    } else {
+      // do that
+      console.log('Not checked');
+    }
+    
+   
   });
 
   
@@ -246,7 +257,7 @@ function consoleer(a,b,c,d){
 }
 
 
-///on click, send form location to firestore
+///when you click submit, send form location to firestore and add marker to the map
 document.getElementById("submitForm").addEventListener("click", function(){
   thunkIt()
 });
