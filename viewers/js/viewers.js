@@ -4,7 +4,7 @@ const geoCollectionRef = geoFirestore.collection('viewers');
 let subscription;
 const markers = {};
 const radius = 10000;
-const returnArray =[]
+const returnArray =[];
 // Query viewers' locations from Firestore
 function queryFirestore(location) {
   if (subscription) {
