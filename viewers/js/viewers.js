@@ -182,8 +182,8 @@ function initMap() {
       //get currrent location
       navigator.geolocation.getCurrentPosition((success) => {
         userLocation = {
-          lat: success.coords.latitude,
-          lng: success.coords.longitude
+          lat: a,
+          lng: b
         };
 
       }, console.log);
@@ -211,6 +211,7 @@ function initMap() {
 
   map.addListener('idle', function () {
     var getCenter = map.getCenter()
+    
     var center = {
       lat: getCenter.lat(),
       lng: getCenter.lng()
