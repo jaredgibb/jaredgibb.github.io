@@ -4,7 +4,7 @@ const geoCollectionRef = geoFirestore.collection('viewers');
 let subscription;
 const markers = {};
 const radius = 50;
-let returnArray = [];
+let ra = [];
 let markersList = []
 
 
@@ -27,7 +27,7 @@ function queryFirestore(location) {
   } else {
     console.log('markers are empty')
   }
-  returnArray = []
+  ra = []
   markersList = []
   if (subscription) {
     console.log('Old query subscription cancelled');
@@ -46,12 +46,12 @@ function queryFirestore(location) {
 
     snapshot.docChanges().forEach((change) => {
       let distance = change.doc.distance * 0.6214
-      returnArray.push({
+      ra.push({
         'placeInformation': change.doc.data(),
         'distanceInMiles': parseFloat(distance.toFixed(1))
       })
     })
-    console.log(returnArray)
+    console.log(ra)
 
     snapshot.docChanges().forEach((change) => {
 
