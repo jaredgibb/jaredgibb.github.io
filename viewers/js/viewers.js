@@ -3,11 +3,32 @@ const geoFirestore = new GeoFirestore(firestore);
 const geoCollectionRef = geoFirestore.collection('viewers');
 let subscription;
 const markers = {};
-const radius = 1000;
-const returnArray = [];
+const radius = 50;
+let returnArray = [];
+let markersList = []
+
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+// Removes the markers from the map, but keeps them in the array.
 
 // Query viewers' locations from Firestore
 function queryFirestore(location) {
+
+  if (markersList.length > 1) {
+    markersList.forEach(key => {
+      removeMarker(key)
+    });
+  } else {
+    console.log('markers are empty')
+  }
+  returnArray = []
+  markersList = []
   if (subscription) {
     console.log('Old query subscription cancelled');
     subscription();
@@ -27,7 +48,7 @@ function queryFirestore(location) {
       let distance = change.doc.distance * 0.6214
       returnArray.push({
         'placeInformation': change.doc.data(),
-        'distance': distance + 'miles'
+        'distanceInMiles': parseFloat(distance.toFixed(1))
       })
     })
     console.log(returnArray)
@@ -49,6 +70,7 @@ function queryFirestore(location) {
       }
     });
   });
+  console.log(markersList)
 }
 
 
@@ -148,7 +170,6 @@ function initMap() {
     content: "Click the map to get Lat/Lng!",
     position: userLocation,
   });
-
   infoWindow.open(map);
 
   //control what happens when a user clicks on the map. this is ultimately dependent upon the toggle. 
@@ -159,77 +180,82 @@ function initMap() {
     // Close the current InfoWindow.
     infoWindow.close();
     // Create a new InfoWindow.
-    infoWindow = new google.maps.InfoWindow({
-      position: mapsMouseEvent.latLng,
-    });
-    infoWindow.setContent(
-      JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-    );
-    infoWindow.open(map);
+    // infoWindow = new google.maps.InfoWindow({
+    //   position: mapsMouseEvent.latLng,
+    // });
+    // infoWindow.setContent(
+    //   JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+    // );
+    // infoWindow.open(map);
 
     a = mapsMouseEvent.latLng.toJSON().lat
     b = mapsMouseEvent.latLng.toJSON().lng
+    parseFloat(a)
+    parseFloat(b)
     document.getElementById("element_1").value = a
     document.getElementById("element_2").value = b
 
-    //if the toggle is on, what to do
+    /* if the toggle is on, what to do*/
     if (checkbox.checked) {
       geocodeLatLng(a, b)
-      console.log('Checked');
+
     } else {
      
-      //what to do if the toggle is off
-      //get currrent location
-      navigator.geolocation.getCurrentPosition((success) => {
-        userLocation = {
-          lat: a,
-          lng: b
-        };
+      /*what to do if the toggle is off get currrent location*/
+      userLocation = {
+        lat: parseFloat(a),
+        lng: parseFloat(b)
+      };
 
-      }, console.log);
       //set new center of map
       map.setCenter(userLocation);
 
-      //add center marker
-      new google.maps.Marker({
-        position: userLocation,
-        map: map,
-        icon: './assets/bluedot.png'
-      }); 
-      console.log('Not checked');
+      setMapOnAll(null)
+      queryFirestore(userLocation)
+
+      // //add center marker
+      // new google.maps.Marker({
+      //   position: userLocation,
+      //   map: map,
+      //   icon: './assets/bluedot.png'
+      // }); 
+    
 
     }
 
 
   });
 
-
-
-
-
-
-
   map.addListener('idle', function () {
     var getCenter = map.getCenter()
     
-    var center = {
-      lat: getCenter.lat(),
-      lng: getCenter.lng()
-    };
+ 
+      var center = {
+        lat: getCenter.lat(),
+        lng: getCenter.lng()
+      };
+  
+      if (!mapCenter || Geokit.distance(mapCenter, center) > (radius * 0.7)) {
+        mapCenter = center;
+        queryFirestore(center);
+        console.log('new query')
+      }
 
-    if (!mapCenter || Geokit.distance(mapCenter, center) > (radius * 0.7)) {
-      mapCenter = center;
-      queryFirestore(center);
-    }
+
   });
 }
 
 // Add Marker to Google Maps
 function addMarker(key, data) {
+ 
+  markersList.push(key)
   if (!markers[key]) {
+   
     var infowindow = new google.maps.InfoWindow({
       content: 'City: ' + data.city + '\n' + 'Fact: ' + data.fact
     });
+
+    
 
     markers[key] = new google.maps.Marker({
       position: {
@@ -239,11 +265,15 @@ function addMarker(key, data) {
       map: map
     });
 
+
+
     markers[key].addListener('click', function () {
+      
       infowindow.open(map, markers[key]);
     });
   }
 }
+
 
 // Remove Marker to Google Maps
 function removeMarker(key) {
@@ -253,6 +283,7 @@ function removeMarker(key) {
     markers[key] = null;
   }
 }
+
 
 // Update Marker on Google Maps
 function updateMarker(key, data) {
