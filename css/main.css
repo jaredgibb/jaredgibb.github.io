@@ -1521,74 +1521,6 @@ h2 {
         }
     
 /*Row*/
-.dorik-row-hursx5gd {
-            
-  border-style: solid;
-
-  border-bottom-width: 0px;
-  border-bottom-color: #E5EBF0;
-  padding-bottom: 25px;
-
-
-  align-items: stretch; 
-
-        }
-    .dorik-row-hursx5gd-wrapper {
-
-}
-
-
-/*Column*/
-@media screen and (max-width: 1023px) {
-                
-            }@media screen and (max-width: 767px) {
-                
-            }
-/*Image*/
-.dorik-image-oe1omn3t {
-              width: 70px; 
-
-        }
-    
-/*Column*/
-.dorik-column-hcpxm28x {
-              justify-content: center; 
-
-        }
-    @media screen and (max-width: 1023px) {
-                
-            }@media screen and (max-width: 767px) {
-                
-            }.dorik-column-hcpxm28x {
-            display: flex; 
-            flex-direction: column; 
-        }
-/*Button*/
-.dorik-button-gncfspv1 {
-              padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 30px;
-  padding-right: 30px;
-text-decoration: none;
-  justify-content: center; 
-  border-radius: 5px 5px 5px 5px; 
-  border-width: 1px;
-  border-style: solid;
-  border-color: #3E00EE;
-  font-size: 16px; 
-  color: #3E00EE; 
-  line-height: 16px; 
-  flex-direction: row-reverse; 
-
-        }
-    .dorik-button-gncfspv1-wrapper {
-  text-align: right; 
-
-}
-.dorik-button-gncfspv1 .icon {
-        font-size: 10px;margin-left: 8px
-    }
-/*Row*/
 .dorik-row-bwxu7qzm {
               margin-top: 60px;
 
@@ -1756,6 +1688,8 @@ text-decoration: none;
         }
     .dorik-image-cpzkl4cw-wrapper {
   text-align: center; 
+  type: link; 
+  attr: [object Object]; 
 
 }
 
@@ -1765,7 +1699,11 @@ text-decoration: none;
   text-align: center; 
 
         }
-    
+    .dorik-heading-pumit0tt-wrapper {
+  attr: [object Object]; 
+
+}
+
 /*Text*/
 .dorik-text-0dbp2wsr {
               margin-top: 0px;
@@ -1850,6 +1788,8 @@ text-decoration: none;
         }
     .dorik-image-onq5f05h-wrapper {
   text-align: center; 
+  type: link; 
+  attr: [object Object]; 
 
 }
 
@@ -1859,7 +1799,11 @@ text-decoration: none;
   text-align: center; 
 
         }
-    
+    .dorik-heading-li7qfzhf-wrapper {
+  attr: [object Object]; 
+
+}
+
 /*Text*/
 .dorik-text-dat160l9 {
               margin-top: 0px;
@@ -1944,6 +1888,8 @@ text-decoration: none;
         }
     .dorik-image-4lwbaw8w-wrapper {
   text-align: center; 
+  type: link; 
+  attr: [object Object]; 
 
 }
 
@@ -1953,7 +1899,11 @@ text-decoration: none;
   text-align: center; 
 
         }
-    
+    .dorik-heading-d27tdjxr-wrapper {
+  attr: [object Object]; 
+
+}
+
 /*Text*/
 .dorik-text-hdzmtzk0 {
               margin-top: 0px;
