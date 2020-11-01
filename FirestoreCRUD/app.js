@@ -39,7 +39,7 @@ function renderPlaces(doc){
     //append the list item to the list of list items
     placesList.appendChild(li)
 
-    //deletingPlaces added to each list
+    //DELETE
     cross.addEventListener('click', (e) =>{
         e.stopPropagation();
         let id = e.target.parentElement.getAttribute('data-id');
@@ -48,7 +48,7 @@ function renderPlaces(doc){
 
 
 
-    //update a place 'interestingFact'
+    //UPDATE. we add this listner to every editx' button
     button.addEventListener('click', (e) => {
 
         e.stopPropagation();
@@ -77,7 +77,7 @@ db.collection('places').where('City', '>', 'A').get().then((snapshot) => {
 form.addEventListener('submit',(e) =>{
     e.preventDefault();
 
-    //pass a JSON object 
+    //CREATE
     db.collection('places').add({
         Place: form.place.value,
         City: form.city.value,
@@ -93,16 +93,19 @@ form.addEventListener('submit',(e) =>{
 
 
 
-//real-time listener
+//READ IN REALTIME
 db.collection('places').orderBy('City').onSnapshot(snapshot => {
     let changes = snapshot.docChanges();
     changes.forEach(change => {
         if(change.type === 'added'){
+            //if something was added, 
             renderPlaces(change.doc);
             console.log(change.doc)
         } else if (changes.type == 'modified') {
+            //this should probably be looked at. im not sure if this actually updates a list item or just adds a new, modified list item
             renderPlaces(change.doc);
         } else if (change.type ==='removed') {
+            //if item was deleted, remove that item
             let li = placesList.querySelector('[data-id=' + change.doc.id + ']');
             placesList.removeChild(li);
         } 
