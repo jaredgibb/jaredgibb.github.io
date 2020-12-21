@@ -1,0 +1,22 @@
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js" type="text/javascript"></script>
+  </head>
+  <body>
+  <script type="text/javascript">
+ function copyToClipboard(value) {
+  var tempInput = document.createElement("textarea");
+  tempInput.value = value;
+  document.body.appendChild(tempInput);
+  tempInput.select();
+  document.execCommand("copy");
+  document.body.removeChild(tempInput);
+} 
+
+ThunkableWebviewerExtension.receiveMessage(function(message) {
+copyToClipboard(message)
+});
+  </script>
+</html>
