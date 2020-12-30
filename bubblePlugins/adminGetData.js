@@ -13,7 +13,7 @@ if (!admin.apps.length) {
 function initializeApp(serviceAccount) {
    admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
-      databaseURL: "https://login-database-brc.firebaseio.com"
+      databaseURL: "https://<database >.firebaseio.com"
    });
 }
 
