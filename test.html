@@ -25,6 +25,21 @@
 
 
     <script>
+        
+         ThunkableWebviewerExtension.receiveMessage(function (message) {
+               // console.log(message);
+                let a = JSON.stringify(message.type)
+                let textHolder = document.getElementById("text")
+                textHolder.innerHTML = a;
+                let events = message.events
+                
+                if (message.type == 'addAllEvents') {
+                    calendar.addEventSource(events);
+                }
+
+    
+
+            });
 
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
@@ -90,20 +105,7 @@
 
         });
 
- ThunkableWebviewerExtension.receiveMessage(function (message) {
-               // console.log(message);
-                let a = JSON.stringify(message.type)
-                let textHolder = document.getElementById("text")
-                textHolder.innerHTML = a;
-                let events = message.events
-                
-                if (message.type == 'addAllEvents') {
-                    calendar.addEventSource(events);
-                }
 
-    
-
-            });
     </script>
 </body>
 
