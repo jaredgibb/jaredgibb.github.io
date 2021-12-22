@@ -93,9 +93,12 @@
  ThunkableWebviewerExtension.receiveMessage(function (message) {
                // console.log(message);
                 let a = JSON.stringify(message.type)
-                document.getElementById("text").innerHTML = ;
+                let textHolder = document.getElementById("text")
+                textHolder.innerHTML = a;
+                let events = message.events
+                
                 if (message.type == 'addAllEvents') {
-                    calendar.addEventSource(message.events);
+                    calendar.addEventSource(events);
                 }
 
     
