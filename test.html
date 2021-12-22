@@ -82,16 +82,7 @@
             calendar.render();
 
 
-            ThunkableWebviewerExtension.receiveMessage(function (message) {
-                console.log(message);
-                document.getElementById("text").innerHTML = message.type;
-                if (message.type == 'addAllEvents') {
-                    calendar.addEventSource(message.events);
-                }
-
-
-
-            });
+           
 
 
 
@@ -99,7 +90,17 @@
 
         });
 
+ ThunkableWebviewerExtension.receiveMessage(function (message) {
+               // console.log(message);
+                let a = JSON.stringify(message.type)
+                document.getElementById("text").innerHTML = ;
+                if (message.type == 'addAllEvents') {
+                    calendar.addEventSource(message.events);
+                }
 
+    
+
+            });
     </script>
 </body>
 
