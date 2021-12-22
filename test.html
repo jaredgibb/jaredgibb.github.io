@@ -18,6 +18,7 @@
     <style>
 
     </style>
+    <div id='text'></div>
     <div id='calendar'></div>
 
 
@@ -83,6 +84,7 @@
 
             ThunkableWebviewerExtension.receiveMessage(function (message) {
                 console.log(message);
+                document.getElementById("text").innerHTML = message.type;
                 if (message.type == 'addAllEvents') {
                     calendar.addEventSource(message.events);
                 }
