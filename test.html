@@ -60,7 +60,7 @@
             calendar.render();
 
 
-            ThunkableWebviewerExtension.recieveMessage(function(message) {
+            ThunkableWebviewerExtension.receiveMessage(function(message) {
               console.log(message);
               if (message.type == 'addAllEvents') {
                 calendar.addEventSource(message.events);
