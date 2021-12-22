@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js"
+        type="text/javascript"></script>
+
+
+
+<body>
+    <style>
+
+    </style>
+    <div id='text'></div>
+    <div id='calendar'></div>
+
+
+
+
+    <script>
+        
+         ThunkableWebviewerExtension.receiveMessage(function (message) {
+               // console.log(message);
+                let a = JSON.stringify(message.type)
+                let textHolder = document.getElementById("text")
+                textHolder.innerHTML = a;
+                let events = message.events
+                
+                if (message.type == 'addAllEvents') {
+                    calendar.addEventSource(events);
+                }
+
+    
+
+            });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                headerToolbar: {
+                    left: '',
+                    center: 'title',
+                    right: 'dayGridMonth timeGridWeek timeGridDay'
+                },
+                footerToolbar: {
+                    left: 'prev next today',
+
+                },
+                allDaySlot: false,
+                navLinks: true, // can click day/week names to navigate views
+                selectable: true,
+                selectMirror: true,
+                dayMaxEvents:0,
+                moreLinkContent:function(args){
+                    return '+ See All';
+                },
+                height: 'auto',
+                views: {
+                    dayGrid: {
+                        titleFormat: { 
+                            year: 'numeric', 
+                            month: 'short' 
+                        }, 
+                        eventTimeFormat: {
+                            hour: 'numeric',
+                            minute: '2-digit',
+                            omitZeroMinute: true,
+                            meridiem: 'narrow'
+                        }
+                    },
+                    timeGrid: {
+                        // options apply to timeGridWeek and timeGridDay views
+                    },
+                    week: {
+                        titleFormat: { 
+                            year: 'numeric', 
+                            month: 'short' 
+                        }
+                    },
+                    day: {
+                        titleFormat: { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' }
+                    }
+                }
+            });
+
+            calendar.render();
+
+
+           
+
+
+
+
+
+        });
+
+
+    </script>
+</body>
+
+</html>
