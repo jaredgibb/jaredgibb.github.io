@@ -75,7 +75,7 @@
            
 
 
-
+window['calendar'] = calendar;
 
 
         });
@@ -88,7 +88,9 @@
 
     // when we get a message from the app, display it on the page
     ThunkableWebviewerExtension.receiveMessage(function(message) {
-      document.getElementById('messageDisplay').innerHTML = message;
+     
+      let whatType = typeof message
+      document.getElementById('messageDisplay').innerHTML = let;
     });
 
     // when we get a message from the app that needs a return value
