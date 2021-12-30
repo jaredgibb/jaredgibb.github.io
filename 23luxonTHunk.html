@@ -67,7 +67,10 @@
         console.log(t)
         console.log(tz)
         console.log(luxon.DateTime.TIME_SIMPLE);
-        let returnObj = luxon.DateTime.fromSeconds(t).setZone(tz).toLocaleString(luxon.DateTime.TIME_SIMPLE);
+        
+        // https://moment.github.io/luxon/#/formatting?id=presets
+        
+        let returnObj = luxon.DateTime.fromSeconds(t).setZone(tz).toLocaleString(luxon.DateTime.DATE_FULL);
         
         ThunkableWebviewerExtension.postMessage(returnObj);
     });
