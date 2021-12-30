@@ -66,7 +66,7 @@
         let t = parseFloat(m.time)
         console.log(t)
         console.log(tz)
-        console.log(luxon.DateTime.TIME_SIMPLE))
+        console.log(luxon.DateTime.TIME_SIMPLE);
         let returnObj = luxon.DateTime.fromSeconds(t).setZone(tz).toLocaleString(luxon.DateTime.TIME_SIMPLE);
         
         ThunkableWebviewerExtension.postMessage(returnObj);
