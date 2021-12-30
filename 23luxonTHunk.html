@@ -62,8 +62,8 @@
         console.log(message);
         //show message in UI 
         document.getElementById('test').innerHTML = JSON.stringify(message);
-        
-        let returnObj = luxon.DateTime.fromSeconds(message.time).setZone(message.timezone).toLocaleString(luxon.DateTime.TIME_SIMPLE);
+        let t = parseFloat(message.time)
+        let returnObj = luxon.DateTime.fromSeconds(t).setZone(message.timezone).toLocaleString(luxon.DateTime.TIME_SIMPLE);
         
         ThunkableWebviewerExtension.postMessage(returnObj);
     });
