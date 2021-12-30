@@ -59,11 +59,11 @@
 <script>
 
     ThunkableWebviewerExtension.receiveMessage(function (message) {
-        console.log(message);
-        //show message in UI 
-        document.getElementById('test').innerHTML = JSON.stringify(message);
-        let t = parseFloat(message.time)
-        let returnObj = luxon.DateTime.fromSeconds(t).setZone(message.timezone).toLocaleString(luxon.DateTime.TIME_SIMPLE);
+        
+        let m = JSON.parse(message);
+        console.log(m);       
+        let t = parseFloat(m.time)
+        let returnObj = luxon.DateTime.fromSeconds(t).setZone(m.timezone).toLocaleString(luxon.DateTime.TIME_SIMPLE);
         
         ThunkableWebviewerExtension.postMessage(returnObj);
     });
