@@ -59,22 +59,11 @@
 
         <script>
 
-
-
-
 ThunkableWebviewerExtension.receiveMessageWithReturnValue(function(message, callback) {
-    let m = JSON.parse(message);
-        console.log(m);   
-        let tz = m.timezone
-        let t = parseFloat(m.time)
-        console.log(t)
-        console.log(tz)
-        console.log(luxon.DateTime.TIME_SIMPLE);
-        
+        let m = JSON.parse(message);
+        let t = parseFloat(m.time)      
         // https://moment.github.io/luxon/#/formatting?id=presets
-        
-        let returnTime = luxon.DateTime.fromSeconds(t).setZone(tz).toLocaleString(luxon.DateTime.DATE_FULL);
-        callback(returnTime);
+        callback(luxon.DateTime.fromSeconds(t).toLocaleString(luxon.DateTime.DATE_FULL));
     });
         </script>
     </body>
