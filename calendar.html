@@ -17,99 +17,105 @@
 
   </body>
   <script type="text/javascript">
-    
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
+    document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                headerToolbar: {
-                    left: '',
-                    center: 'title',
-                    right: 'dayGridMonth timeGridWeek timeGridDay'
-                },
-                footerToolbar: {
-                    left: 'prev next today',
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    headerToolbar: {
+      left: '',
+      center: 'title',
+      right: 'dayGridMonth timeGridWeek timeGridDay'
+    },
+    footerToolbar: {
+      left: 'prev next today',
 
-                },
-                allDaySlot: true,
-                navLinks: true, // can click day/week names to navigate views
-                selectable: true,
-                selectMirror: true,
-                dayMaxEvents:0,
-                moreLinkContent:function(args){
-                    return '+ See All';
-                },
-                contentHeight: '85%',
-                views: {
-                    dayGrid: {
-                        titleFormat: { 
-                            year: 'numeric', 
-                            month: 'short' 
-                        }, 
-                        eventTimeFormat: {
-                            hour: 'numeric',
-                            minute: '2-digit',
-                            omitZeroMinute: true,
-                            meridiem: 'narrow'
-                        }
-                    },
-                    timeGrid: {
-                        // options apply to timeGridWeek and timeGridDay views
-                    },
-                    week: {
-                        titleFormat: { 
-                            year: 'numeric', 
-                            month: 'short' 
-                        }
-                    },
-                    day: {
-                        titleFormat: { 
-                            year: 'numeric', 
-                            month: 'short', 
-                            day: 'numeric' }
-                    }
-                }
-            });
-
-            calendar.render();
-
-
-           
-
-
-window['calendar'] = calendar;
-
-
-        });
-
-
-    //// when the button is clicked, send a message to the app
-    //document.getElementById('messageButton').onclick = function() {
-    //  ThunkableWebviewerExtension.postMessage('hello world');
-    //}
-
-    // when we get a message from the app, display it on the page
-    ThunkableWebviewerExtension.receiveMessage(function(message) {
-     
-      let o = JSON.parse(message)
-      console.log(o.events)
-      calendar.addEventSource(o.events)
-      document.getElementById('messageDisplay').innerHTML = o.events.length
-    });
-
-    // when we get a message from the app that needs a return value
-    // return the string 'fast response' unless the message is
-    // 'slow message'. If the message is 'slow message', wait for
-    // four seconds, then return the string 'slow response'.
-    // The slow response shows how this could work for API calls that
-    // take time to execute.
-    ThunkableWebviewerExtension.receiveMessageWithReturnValue(function(message, callback) {
-      if (message === 'slow message') {
-        setTimeout(() => callback('slow response'), 4000);
-      } else {
-        callback('fast response');
+    },
+    allDaySlot: true,
+    eventContent: function(arg) {
+      return {
+        html: arg.event.title 
       }
-    });
+    },
+    navLinks: true, // can click day/week names to navigate views
+    selectable: true,
+    selectMirror: true,
+    dayMaxEvents: 0,
+    moreLinkContent: function(args) {
+      return '+ See All';
+    },
+    contentHeight: '85%',
+    views: {
+      dayGrid: {
+        titleFormat: {
+          year: 'numeric',
+          month: 'short'
+        },
+        eventTimeFormat: {
+          hour: 'numeric',
+          minute: '2-digit',
+          omitZeroMinute: true,
+          meridiem: 'narrow'
+        }
+      },
+      timeGrid: {
+        // options apply to timeGridWeek and timeGridDay views
+      },
+      week: {
+        titleFormat: {
+          year: 'numeric',
+          month: 'short'
+        }
+      },
+      day: {
+        titleFormat: {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        }
+      }
+    }
+  });
+
+  calendar.render();
+
+
+
+
+
+  window['calendar'] = calendar;
+
+
+});
+
+
+//// when the button is clicked, send a message to the app
+//document.getElementById('messageButton').onclick = function() {
+//  ThunkableWebviewerExtension.postMessage('hello world');
+//}
+
+// when we get a message from the app, display it on the page
+ThunkableWebviewerExtension.receiveMessage(function(message) {
+
+  let o = JSON.parse(message)
+  console.log(o.events)
+  calendar.addEventSource(o.events)
+  document.getElementById('messageDisplay').innerHTML = o.events.length
+});
+
+// when we get a message from the app that needs a return value
+// return the string 'fast response' unless the message is
+// 'slow message'. If the message is 'slow message', wait for
+// four seconds, then return the string 'slow response'.
+// The slow response shows how this could work for API calls that
+// take time to execute.
+ThunkableWebviewerExtension.receiveMessageWithReturnValue(function(message, callback) {
+  if (message === 'slow message') {
+    setTimeout(() => callback('slow response'), 4000);
+  } else {
+    callback('fast response');
+  }
+});
+
   </script>
 </html>
 
