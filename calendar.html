@@ -46,6 +46,12 @@
     moreLinkContent: function(args) {
       return '👀 all';
     },
+    eventClick: function( e ) { 
+      
+    let event = JSON.stringify({'type':'event','data': e.event})
+    ThunkableWebviewerExtension.postMessage(event);
+
+    },
     contentHeight: '85%',
     views: {
       dayGrid: {
