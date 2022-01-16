@@ -10,11 +10,9 @@
   </body>
   <script type="text/javascript">
     // when the button is clicked, send a message to the app
-    document.getElementById('messageButton').onclick = function() {
-      ThunkableWebviewerExtension.postMessage('hello world');
-    }
+
     let paste = document.getElementById('messageButton')
-paste.onclick = function() {
+paste.onclick = async function() {
 	navigator.clipboard.readText()
   	.then(text => {
     	
@@ -22,7 +20,7 @@ paste.onclick = function() {
      
     })
   	.catch(e => {
-         ThunkableWebviewerExtension.postMessage(JSON.stringify(e));
+         ThunkableWebviewerExtension.postMessage(e.message);
 
     });
 };
