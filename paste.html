@@ -13,6 +13,19 @@
     document.getElementById('messageButton').onclick = function() {
       ThunkableWebviewerExtension.postMessage('hello world');
     }
+    let paste = document.getElementById('messageButton')
+paste.onclick = function() {
+	navigator.clipboard.readText()
+  	.then(text => {
+    	
+     ThunkableWebviewerExtension.postMessage(text);
+     
+    })
+  	.catch(e => {
+         ThunkableWebviewerExtension.postMessage(JSON.stringify(e));
+
+    });
+};
 
     // when we get a message from the app, display it on the page
     ThunkableWebviewerExtension.receiveMessage(function(message) {
