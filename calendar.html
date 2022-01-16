@@ -1,10 +1,12 @@
 <html>
   <head>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/build/global/luxon.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js"
         type="text/javascript"></script>
+    
     <style>
       #calendar {
                 height: 95vh;
@@ -31,10 +33,11 @@
 
     },
     allDaySlot: true,
-    eventContent: function(arg) {
-      return {
-        html: arg.event.title 
-      }
+  eventContent: function (arg) {
+      let a = (arg.event.start.getHours() >= 12) ? 'p' : 'a'
+      let t = (arg.event.start.getMinutes() > 0) ? luxon.DateTime.fromMillis(Date.parse(arg.event.start)).toFormat("h:mm")  + a : luxon.DateTime.fromMillis(Date.parse(arg.event.start)).toFormat("h")  + a
+
+      return { html: t + ' ' + arg.event.title };
     },
     navLinks: true, // can click day/week names to navigate views
     selectable: true,
