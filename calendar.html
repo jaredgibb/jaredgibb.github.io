@@ -55,6 +55,7 @@
     longPressDelay: 250,
     select:function(e){
       let event = JSON.stringify({'type':'selection','data': e})
+      console.log(event)
       ThunkableWebviewerExtension.postMessage(event);
 
     },
