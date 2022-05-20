@@ -52,6 +52,12 @@
     ThunkableWebviewerExtension.postMessage(event);
 
     },
+    longPressDelay: 250,
+    select:function(e){
+      let event = JSON.stringify({'type':'selection','data': e})
+      ThunkableWebviewerExtension.postMessage(event);
+
+    },
     contentHeight: '85%',
     views: {
       dayGrid: {
