@@ -69,10 +69,13 @@
         console.log(luxon.DateTime.TIME_SIMPLE);
         
         // https://moment.github.io/luxon/#/formatting?id=presets
+
+        const o = {
+            "d":luxon.DateTime.fromSeconds(t).setZone(tz).toLocaleString(luxon.DateTime.DATE_FULL),
+            "t":luxon.DateTime.fromSeconds(t).setZone(tz).toLocaleString(luxon.DateTime.TIME_SIMPLE)
+        };
         
-        let returnObj = luxon.DateTime.fromSeconds(t).setZone(tz).toLocaleString(luxon.DateTime.DATE_FULL);
-        
-        ThunkableWebviewerExtension.postMessage(returnObj);
+        ThunkableWebviewerExtension.postMessage(JSON.stringify(o));
     });
 
 </script>
