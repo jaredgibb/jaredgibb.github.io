@@ -9,10 +9,11 @@
 </body>
 <script>
     //when the window closes, show an alert
-    window.onbeforeunload = function() {
-        alert('shit')
-        return "Are you sure you want to leave?";
-    };
+ addEventListener("beforeunload", (event) => {
+
+     alert('shit')
+     
+ });
 
     
 
