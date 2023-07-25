@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Unload Event Example</title>
+  <title>BeforeUnload Event Example</title>
 </head>
 <body>
 
@@ -9,13 +9,13 @@
   <p>This page will show an alert when you try to close or refresh it.</p>
 
   <script>
-    // Function to display an alert when the page is being unloaded
-    function showUnloadAlert() {
-      alert('shit');
+    // Function to display a custom message when the page is being unloaded
+    function showUnloadMessage(event) {
+      event.returnValue = 'Are you sure you want to leave?';
     }
 
-    // Attaching the 'unload' event listener to the window object
-    window.addEventListener('unload', showUnloadAlert);
+    // Attaching the 'beforeunload' event listener to the window object
+    window.addEventListener('beforeunload', showUnloadMessage);
   </script>
 
 </body>
